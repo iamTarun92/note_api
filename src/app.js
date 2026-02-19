@@ -1,14 +1,32 @@
 const express = require('express')
-const products = require('../products.json')
-
+const mongoose = require('mongoose')
+const userRouter = require('./routes/user-routes')
+const noteRouter = require('./routes/note-routes')
 const app = express()
 const port = 3000
 
 // Routes
+app.use('/api/users', userRouter)
+app.use('/api/notes', noteRouter)
+
 app.get('/', (req, res) => {
-  res.status(200).json(products)
+  res.status(200).send('Welcome to the Note API!')
 })
 
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`)
-})
+mongoose
+  .connect(
+    'mongodb+srv://admin:admin@cluster0.ixhnxgz.mongodb.net/?appName=Cluster0',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
+  )
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server started on port ${port}`)
+    })
+    console.log('Connected to MongoDB')
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err)
+  })
