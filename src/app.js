@@ -5,6 +5,8 @@ const noteRouter = require('./routes/note-routes')
 const app = express()
 const port = 3000
 
+app.use(express.json())
+
 // Routes
 app.use('/api/users', userRouter)
 app.use('/api/notes', noteRouter)
@@ -16,10 +18,6 @@ app.get('/', (req, res) => {
 mongoose
   .connect(
     'mongodb+srv://admin:admin@cluster0.ixhnxgz.mongodb.net/?appName=Cluster0',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    },
   )
   .then(() => {
     app.listen(port, () => {
