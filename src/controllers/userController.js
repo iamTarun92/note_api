@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const SECRET_KEY = 'NOTESAPI' // In production, use an environment variable for the secret key
 
 // User registration (signup) function
-const createUser = async (req, res) => {
+const signup = async (req, res) => {
   const { email, password, username } = req.body
   try {
     const existingUser = await userModel.findOne({ email: email })
@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
 }
 
 // User login (signin) function
-const login = async (req, res) => {
+const signin = async (req, res) => {
   const { email, password } = req.body
   try {
     const existingUser = await userModel.findOne({ email: email })
@@ -54,4 +54,4 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { createUser, login }
+module.exports = { signup, signin }
